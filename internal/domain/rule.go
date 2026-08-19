@@ -36,8 +36,10 @@ func (r *Rule) IsActiveAt(t time.Time) bool {
 	if t.Before(r.EffectiveFrom) {
 		return false
 	}
-	if !r.EffectiveTo.IsZero() && !t.Before(r.EffectiveTo) {
-		return false
+	if !r.EffectiveTo.IsZero() {
+		if t.After(r.EffectiveTo) {
+			return false
+		}
 	}
 	return true
 }

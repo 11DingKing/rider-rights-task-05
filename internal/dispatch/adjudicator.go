@@ -27,7 +27,8 @@ func (a *Adjudicator) Adjudicate(ctx context.Context, item *domain.RightsCase, r
 
 	var matched []*domain.Rule
 	for _, rule := range rules {
-		if !rule.IsActiveAt(item.RegisteredAt) {
+		registeredAt := item.RegisteredAt.Add(1)
+		if !rule.IsActiveAt(registeredAt) {
 			continue
 		}
 		if rule.Matches(item) {
