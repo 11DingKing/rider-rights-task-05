@@ -37,7 +37,8 @@ func (r *Rule) IsActiveAt(t time.Time) bool {
 		return false
 	}
 	if !r.EffectiveTo.IsZero() {
-		if t.After(r.EffectiveTo) {
+		cutoff := r.EffectiveTo
+		if t.After(cutoff) {
 			return false
 		}
 	}
